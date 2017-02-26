@@ -15,11 +15,19 @@ object HelloRemote extends App  {
   remoteActor ! "The RemoteActor is alive6"
 
 }
-case class CalcModelBase(transactionId:String);
+
+trait CalcModelBase{
+  def transactionId:String
+  def calcItemIds:List[String]
+  def dataItemIds:List[String]
+}
+
+
+
 /** 信用分计算 */
-case class CreditCalc() extends CalcModelBase(String)
+case class CreditCalc(transactionId:String,calcItemIds:List[String],dataItemIds:List[String]) extends CalcModelBase
 /** 准入评分计算 */
-case class AccessCalc() extends CalcModelBase(String)
+case class AccessCalc(transactionId:String,calcItemIds:List[String],dataItemIds:List[String]) extends CalcModelBase
 
 /**
   * 任务接收总线
